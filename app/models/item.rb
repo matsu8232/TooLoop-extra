@@ -4,6 +4,10 @@ class Item < ApplicationRecord
   enum status: { available: 0, maintenance: 1 }
   has_one_attached :image
   has_many :reservations, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  def favorited_by?(user)
+    favorites.where(user_id: user.id).exists?
+  end
 
   validates :name, presence: true, length: { maximum: 15 }
   validates :description, presence: true, length: { maximum: 200}

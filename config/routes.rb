@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   resources :items do
     resources :reservations, only: [:index, :new, :create, :show, :destroy]
+    resource :favorites, only: [:create, :destroy]
   end
   resources :chats, only: [:show, :create, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

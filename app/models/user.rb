@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :entries, dependent: :destroy
   has_many :chats
   has_many :rooms, through: :entries
+  has_many :favorites, dependent: :destroy
 
   has_many :rented_items, through: :reservations, source: :item
 
