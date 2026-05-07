@@ -13,6 +13,19 @@
                 <% else %>
                     <%= image_tag 'no_image.jpg', size: "450x350" %>
                 <% end %>
+                <% if user_signed_in? %>
+                    <% if @item.favorited_by?(current_user) %>
+                        <%= link_to item_favorites_path(@item), data: { turbo_method: :delete }, class: "favorite_btn" do %>
+                            ★<%=@item.favorites.count %>個のお気に入り
+                        <% end %>
+                    <% else%>
+                        <%= link_to item_favorites_path(@item), data: { turbo_method: :post }, class: "favorite_btn" do %>
+                            ⭐︎<%=@item.favorites.count %>個のお気に入り
+                        <% end %>
+                    <% end %>
+                <% else %>
+                    <span class="text-muted">お気に入りするにはログインしてください</span>
+                <% end %>
                 <p id="text">【備品の説明】</p>
                 <%= @item.description %>
                 <p id="text">【所有課】<%= link_to @item.user.name, user_path(@item.user) %></p>

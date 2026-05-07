@@ -6,6 +6,7 @@ class Item < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :favorites, dependent: :destroy
   def favorited_by?(user)
+    return false if user.nil?
     favorites.where(user_id: user.id).exists?
   end
 
