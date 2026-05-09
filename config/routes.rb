@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :reservations, only: [:index, :new, :create, :show, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
+  resources :favorites, only: [:index]
   resources :chats, only: [:show, :create, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

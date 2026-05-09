@@ -12,4 +12,8 @@ class FavoritesController < ApplicationController
     favorite.destroy
     redirect_to item_path(item)
   end
+
+  def index
+    @favorites = current_user.favorites.includes(:item)
+  end
 end
