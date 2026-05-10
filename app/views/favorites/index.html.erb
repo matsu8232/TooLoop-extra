@@ -1,0 +1,54 @@
+<div class="cover-favorites-index">
+    <div class="container d-flex flex-column align-items-center">
+        <div class="row mt-3 w-100 align-items-start justify-content-between g-3">
+            <div class="col-12 col-lg">
+                <h1 class="mb-0">お気に入り一覧</h1>
+                <p class="favorite-lead mb-0 mt-2">
+                    登録した備品は <%= @favorites.size %> 件です。
+                </p>
+            </div>
+            <div class="col-12 col-lg-auto">
+                <div class="favorite-header-actions d-flex flex-wrap gap-2 justify-content-lg-end">
+                    <%= link_to "マイページへ戻る", user_path(current_user), class: "btn btn-outline-primary" %>
+                    <%= link_to "備品を探す", items_path, class: "btn btn-success" %>
+                </div>
+            </div>
+        </div>
+
+        <% if @favorites.any? %>
+            <div class="row g-4 mt-2 mb-4 index-left w-100 favorite-grid">
+                <% @favorites.each do |favorite| %>
+                    <% item = favorite.item %>
+                    <div class="col-12 col-sm-6 col-xl-4">
+                        <article class="favorite-card h-100">
+                            <%= link_to item_path(item), class: "favorite-card__link" do %>
+                                <div class="favorite-card__media">
+                                    <% if item.image.attached? %>
+                                        <%= image_tag item.image.variant(resize_to_limit: [300, 200]), class: "favorite-card__img", alt: item.name %>
+                                    <% else %>
+                                        <%= image_tag "no_image.jpg", size: "300x200", class: "favorite-card__img", alt: item.name %>
+                                    <% end %>
+                                </div>
+                                <p class="favorite-card__title caption mb-1"><%= item.name %></p>
+                                <p class="favorite-card__owner mb-1"><%= item.user.name %></p>
+                                <p class="favorite-card__category mb-1"><%= item.category.name %></p>
+                                <p class="favorite-card__status mb-0"><%= t("enums.item.status.#{item.status}") %></p>
+                            <% end %>
+                            <div class="favorite-card__footer">
+                                <%= link_to item_favorites_path(item), data: { turbo_method: :delete, turbo_confirm: "お気に入りから削除しますか？" }, class: "btn btn-sm favorite-card__remove" do %>
+                                    お気に入りを解除
+                                <% end %>
+                            </div>
+                        </article>
+                    </div>
+                <% end %>
+            </div>
+        <% else %>
+            <div class="favorite-empty w-100 text-center my-5 px-3">
+                <p class="favorite-empty__title mb-2">お気に入りに登録された備品はまだありません。</p>
+                <p class="favorite-empty__text text-muted mb-4">備品詳細ページの星マークから、気になる備品を登録できます。</p>
+                <%= link_to "備品一覧を見る", items_path, class: "btn btn-success" %>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -38,6 +38,12 @@ module ApplicationHelper
         crumbs << { label: "マイページ", path: user_path(current_user_id_for_breadcrumb) }
         crumbs << { label: "プロフィール編集", path: nil }
       end
+    when "favorites"
+      crumbs << { label: "マイページ", path: user_path(current_user&.id) } if current_user
+      case action_name
+      when "index"
+        crumbs << { label: "お気に入り一覧", path: nil }
+      end
     when "chats"
       crumbs << { label: "チャット", path: nil }
     else

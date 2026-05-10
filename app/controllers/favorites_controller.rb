@@ -14,6 +14,6 @@ class FavoritesController < ApplicationController
   end
 
   def index
-    @favorites = current_user.favorites.includes(:item)
+    @favorites = current_user.favorites.includes(item: [:user, :category]).order(created_at: :desc)
   end
 end
