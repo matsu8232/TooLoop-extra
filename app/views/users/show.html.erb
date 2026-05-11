@@ -10,7 +10,6 @@
         <% if user_signed_in? && @user == current_user %>
             <p class="d-flex align-self-end">
                 <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-success" %>
-                <%= link_to "お気に入り一覧", favorites_path, class: "btn btn-primary" %>
             </p>
         <% end %>
         <div class="d-flex flex-column flex-md-row w-100 align-items-start">
@@ -88,6 +87,7 @@
                         </tbody>
                     </table>
                 </div>
+                <%= link_to "お気に入り一覧", favorites_path, class: "btn btn-success mt-3" %>
             <% end %>
         </div>
     </div>
